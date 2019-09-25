@@ -4,12 +4,14 @@ const keys = require('./keys');
 const User = require('../models/user-model');
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.id);                    //*** The 2nd parameter is shoved inside a cookie
 });
 
-passport.deserializeUser((id, done) => {
+
+passport.deserializeUser((id, done) => {    //*** When the cookie is sent by the browser to the server then the content of the cookie
+                                            //    is copied into the first parameter .....id field in here
     User.findById(id).then((user) => {
-        done(null, user);
+        done(null, user);                   //    The 2nd parameter is shoved into the req object
     });
 });
 
@@ -31,7 +33,9 @@ passport.use(
                     .then((currentUser) => {
                         if(currentUser){                                        // already have this user
                                 console.log('user is: ', currentUser);
-                                done(null, currentUser);
+                                done(null, currentUser);                        
+                                // ** When the above done method is called then right after control goes to the 
+                                //    serializeUser() and the above parameters are passed through
                         } else {                                                // if not, create user in our db
                                 new User({
                                     googleId    : profile.id,
@@ -41,6 +45,8 @@ passport.use(
                                  .save().then((newUser) => {
                                     console.log('created new user: ', newUser);
                                     done(null, newUser);
+                                    // ** When the above done method is called then right after control goes to the 
+                                    //    serializeUser() and the above parameters are passed through
                                  });
                         }
                 });
