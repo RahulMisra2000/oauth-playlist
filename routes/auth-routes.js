@@ -14,7 +14,7 @@ router.get('/logout', (req, res) => {
 
 // auth with google+
 //**************** The scope we are requesting ****************************
-router.get('/google', passport.authenticate('google', {scope: ['profile']}));
+router.get('/google', passport.authenticate('google', {scope: ['profile']})); //* Calls google and google shows Consent Screen/Login Screen
 
 
 // callback route for google to redirect to hand control to passport to use code to grab profile info
@@ -24,10 +24,12 @@ router.get('/google', passport.authenticate('google', {scope: ['profile']}));
 //          it no longer takes the user to the consent screen/credential entering page, as in the case if the call ABOVE, BUT instead makes 
 //          a request to google to send back the tokens. Google obliges by calling the function that was provided at the time Google 
 //          Strategy was configured
-router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    // res.send(req.user);
-    res.redirect('/profile');
-});
+router.get('/google/redirect',                  //*Receives the Authorization code from Google as a query string
+            passport.authenticate('google'),    // Sends the just receive Authroization code to Google and wants Tokens
+                                                // Google responds to the function defined in the Google Strategy configured here
+                                                // https://github.com/RahulMisra2000/oauth-playlist/blob/lesson-21/config/passport-setup.js
+            (req, res) => {// res.send(req.user); res.redirect('/profile'); }
+          );
 
 
 module.exports = router;
