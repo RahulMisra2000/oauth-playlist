@@ -8,7 +8,9 @@ router.get('/login', (req, res) => {
 
 // auth logout
 router.get('/logout', (req, res) => {
-    req.logout();
+    req.logout();                               //*** Thanks to passport we have a new method that we can call on the req object
+                                                //    to logout the user. This does not delete the cookie but removes the id from it
+                                                //    tantamounts to the same thing.
     res.redirect('/');
 });
 
