@@ -4,8 +4,8 @@ const keys = require('./keys');
 const User = require('../models/user-model');
 
 
-//*** Remember since we are persisting all users in a mongoDB and it creates a unique key for each record added. It is that 
-//    key that we are using to uniquely idenitfy a user
+//*** Remember since we are persisting all users in a mongoDB and it creates a unique key (called _id) for each record added. It is that 
+//    key that we are using to uniquely idenitfy a user. I believe id is an alias for _id
 passport.serializeUser((user, done) => {
     done(null, user.id);                    //*** The 2nd parameter is shoved inside a cookie
 });
