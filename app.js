@@ -16,13 +16,13 @@ const app = express();
 // set view engine
 app.set('view engine', 'ejs');
 
-// set up session cookies
+//******************************************  set up session cookies
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [keys.session.cookieKey]
+    keys: [keys.session.cookieKey]              // to encrypt the cookie before sending to the browser
 }));
 
-// initialize passport
+//******************************************  initialize passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
