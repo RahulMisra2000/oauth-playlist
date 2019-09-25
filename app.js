@@ -3,7 +3,11 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
+
+//********* You will notice that passportSetup constant is NOT being used anywhere in this file.
+//          The sole purpose is to do a require so that the code in it runs
 const passportSetup = require('./config/passport-setup');
+
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 
