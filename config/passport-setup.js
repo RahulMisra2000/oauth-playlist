@@ -15,10 +15,12 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
     new GoogleStrategy({
-        // options for google strategy
         //***** The next two we will get from Google's Developer Console once we create client credentials there ***************
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,    
+        
+        //***** This is the same as the Authrorized Redirect URI we specified in the Google Developer Console *****************
+        //      It is where google will send back response to user authenticating at google
         callbackURL: '/auth/google/redirect'
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
