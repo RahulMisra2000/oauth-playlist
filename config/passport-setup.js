@@ -3,6 +3,9 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./keys');
 const User = require('../models/user-model');
 
+
+//*** Remember since we are persisting all users in a mongoDB and it creates a unique key for each record added. It is that 
+//    key that we are using to uniquely idenitfy a user
 passport.serializeUser((user, done) => {
     done(null, user.id);                    //*** The 2nd parameter is shoved inside a cookie
 });
@@ -37,7 +40,7 @@ passport.use(
                                 // ** When the above done method is called then right after control goes to the 
                                 //    serializeUser() and the above parameters are passed through
                         } else {                                                // if not, create user in our db
-                                new User({
+                                new User({                                      // Mongo creates a unique id for each record added
                                     googleId    : profile.id,
                                     username    : profile.displayName,
                                     thumbnail   : profile._json.image.url
