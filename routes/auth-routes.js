@@ -28,7 +28,10 @@ router.get('/google/redirect',                  //*Receives the Authorization co
             passport.authenticate('google'),    // Sends the just receive Authroization code to Google and wants Tokens
                                                 // Google responds to the function defined in the Google Strategy configured here
                                                 // https://github.com/RahulMisra2000/oauth-playlist/blob/lesson-21/config/passport-setup.js
-            (req, res) => {// res.send(req.user); res.redirect('/profile'); }
+            (req, res) => {
+                //** By the time we get here, user has already been shoved into req and is available as req.user ***************
+                res.redirect('/profile'); 
+            }
           );
 
 
